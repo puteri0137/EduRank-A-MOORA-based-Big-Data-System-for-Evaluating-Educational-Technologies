@@ -1,20 +1,3 @@
-import subprocess
-import sys
-
-# Function to install openpyxl if not already installed
-def install_openpyxl():
-    try:
-        import openpyxl
-    except ImportError:
-        subprocess.check_call([sys.executable, "-m", "pip", "install", "openpyxl"])
-        print("openpyxl has been installed successfully.")
-    else:
-        print("openpyxl is already installed.")
-
-# Call the function to check and install openpyxl
-install_openpyxl()
-
-# Now you can safely import pandas and openpyxl
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -74,3 +57,4 @@ if uploaded_file is not None:
 
     except Exception as e:
         st.write(f"### Error: An issue occurred while reading the Excel file. Please check the format. Error: {str(e)}")
+
