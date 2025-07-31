@@ -1,3 +1,20 @@
+import subprocess
+import sys
+
+# Function to install openpyxl if not already installed
+def install_openpyxl():
+    try:
+        import openpyxl
+    except ImportError:
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "openpyxl"])
+        print("openpyxl has been installed successfully.")
+    else:
+        print("openpyxl is already installed.")
+
+# Call the function to check and install openpyxl
+install_openpyxl()
+
+# Now you can safely import pandas and openpyxl
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -40,21 +57,6 @@ if uploaded_file is not None:
         st.write(df)
 
         # Ensure the required columns are present
-        required_columns = ['Technology', 'Cost', 'Ease of Use', 'Effectiveness', 'Accessibility', 'Innovation']
-        
-        if not all(col in df.columns for col in required_columns):
-            missing_cols = [col for col in required_columns if col not in df.columns]
-            st.write(f"### Error: The Excel file is missing the following columns: {', '.join(missing_cols)}")
-        else:
-            # Weighting for each criteria (can be adjusted by the user)
-            weights = np.array([0.2, 0.2, 0.2, 0.2, 0.2])  # Sum of weights should equal 1
+        required_colu_
 
-            # Apply MOORA method to rank the technologies
-            ranked_data = moora(df[required_columns[1:]], weights)
-
-            st.write("### Ranking Based on MOORA Method")
-            st.write(ranked_data[['Technology', 'MOORA Score', 'Rank']])
-
-    except Exception as e:
-        st.write(f"### Error: An issue occurred while reading the Excel file. Please check the format. Error: {str(e)}")
 
