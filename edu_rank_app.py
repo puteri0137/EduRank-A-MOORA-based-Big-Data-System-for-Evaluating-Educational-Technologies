@@ -1,4 +1,4 @@
-import streamlit as st
+import streamlit as stimport streamlit as st
 import pandas as pd
 import numpy as np
 
@@ -32,22 +32,28 @@ uploaded_file = st.file_uploader("Upload an Excel file", type="xlsx")
 
 if uploaded_file is not None:
     # Read the uploaded file into a pandas DataFrame
-    df = pd.read_excel(uploaded_file)
-    
-    # Show the uploaded data
-    st.write("### Input Data from Excel")
-    st.write(df)
+    try:
+        df = pd.read_excel(uploaded_file)
+        # Show the uploaded data
+        st.write("### Input Data from Excel")
+        st.write(df)
 
-    # Ensure the required columns are present
-    required_columns = ['Technology', 'Cost', 'Ease of Use', 'Effectiveness', 'Accessibility', 'Innovation']
-    if all(col in df.columns for col in required_columns):
-        # Weighting for each criteria (can be adjusted by the user)
-        weights = np.array([0.2, 0.2, 0.2, 0.2, 0.2])  # Sum of weights should equal 1
+        # Ensure the required columns are present
+        required_columns = ['Technology', 'Cost', 'Ease of Use', 'Effectiveness', 'Accessibility', 'Innovation']
+        
+        if not all(col in df.columns for col in required_columns):
+            missing_cols = [col for col in required_columns if col not in df.columns]
+            st.write(f"### Error: The Excel file is missing the following columns: {', '.join(missing_cols)}")
+        else:
+            # Weighting for each criteria (can be adjusted by the user)
+            weights = np.array([0.2, 0.2, 0.2, 0.2, 0.2])  # Sum of weights should equal 1
 
-        # Apply MOORA method to rank the technologies
-        ranked_data = moora(df[required_columns[1:]], weights)
+            # Apply MOORA method to rank the technologies
+            ranked_data = moora(df[required_columns[1:]], weights)
 
-        st.write("### Ranking Based on MOORA Method")
-        st.write(ranked_data[['Technology', 'MOORA Score', 'Rank']])
-    else:
-        st.write("### Error: The Excel file must contain the following columns: 'Technology', 'Cost', 'Ease of Use', 'Effectiveness', 'Accessibility', 'Innovation'")
+            st.write("### Ranking Based on MOORA Method")
+            st.write(ranked_data[['Technology', 'MOORA Score', 'Rank']])
+
+    except Exception as e:
+        st.write(f"### Error: An issue occurred while reading the Excel file. Please check the format. Error: {str(e)}")
+
