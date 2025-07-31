@@ -39,12 +39,12 @@ technology_data = []
 # Collect input for each technology
 with st.form(key='technology_form'):
     for i in range(num_technologies):
-        technology_name = st.text_input(f"Technology Name {i+1}")
-        cost = st.number_input(f"Cost for {technology_name}", min_value=0.0, step=0.1)
-        ease_of_use = st.number_input(f"Ease of Use for {technology_name}", min_value=0.0, step=0.1)
-        effectiveness = st.number_input(f"Effectiveness for {technology_name}", min_value=0.0, step=0.1)
-        accessibility = st.number_input(f"Accessibility for {technology_name}", min_value=0.0, step=0.1)
-        innovation = st.number_input(f"Innovation for {technology_name}", min_value=0.0, step=0.1)
+        technology_name = st.text_input(f"Technology Name {i+1}", key=f"tech_name_{i}")
+        cost = st.number_input(f"Cost for {technology_name}", min_value=0.0, step=0.1, key=f"cost_{i}")
+        ease_of_use = st.number_input(f"Ease of Use for {technology_name}", min_value=0.0, step=0.1, key=f"ease_{i}")
+        effectiveness = st.number_input(f"Effectiveness for {technology_name}", min_value=0.0, step=0.1, key=f"effectiveness_{i}")
+        accessibility = st.number_input(f"Accessibility for {technology_name}", min_value=0.0, step=0.1, key=f"accessibility_{i}")
+        innovation = st.number_input(f"Innovation for {technology_name}", min_value=0.0, step=0.1, key=f"innovation_{i}")
 
         # Add input data to the list
         technology_data.append({
@@ -75,4 +75,3 @@ if submitted and technology_data:
 
     st.write("### Ranking Based on MOORA Method")
     st.write(ranked_data[['Technology', 'MOORA Score', 'Rank']])
-
