@@ -1,4 +1,4 @@
-import streamlit as stimport streamlit as st
+import streamlit as st
 import pandas as pd
 import numpy as np
 
@@ -31,9 +31,10 @@ You will upload an Excel file containing the data for various educational tools 
 uploaded_file = st.file_uploader("Upload an Excel file", type="xlsx")
 
 if uploaded_file is not None:
-    # Read the uploaded file into a pandas DataFrame
     try:
+        # Read the uploaded file into a pandas DataFrame
         df = pd.read_excel(uploaded_file)
+
         # Show the uploaded data
         st.write("### Input Data from Excel")
         st.write(df)
