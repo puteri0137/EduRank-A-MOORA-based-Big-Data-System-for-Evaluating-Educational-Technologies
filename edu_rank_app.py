@@ -57,6 +57,7 @@ if uploaded_file is not None:
         st.write(df)
 
         # Ensure the required columns are present
-        required_colu_
+        required_columns = ['Technology', ']()_
+
 
 
